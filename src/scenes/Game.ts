@@ -35,8 +35,7 @@ export class Game extends BaseScene
 
     this._player = new Player(this, this.scale.width / 2, this.scale.height - 100);
     this._cop = new Cop(this, 50, this.scale.height - 100);
-    this._cop.setupCollision(this._player);
-    this._player = new Player(this, this.scale.width / 2, this.scale.height / 2);
+    // this._cop.setupCollision(this._player);
 
     this.anims.create({
         key: 'idle',
@@ -51,9 +50,6 @@ export class Game extends BaseScene
         frameRate: 12,
         repeat: -1
     });
-
-    const cop = new Cop(this, 150, 150);
-    cop.setupCollision(this._player);
 
     this.scene.launch("SongScene"); // starts rhythm UI on top
     this.scene.bringToTop("SongScene"); // ensures it's above others
