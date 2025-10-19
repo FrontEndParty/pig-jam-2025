@@ -51,10 +51,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   public check_if_dead () {
-    if (this._health <= 0) {
-      this.scene.scene.stop("SongScene");   // stop overlay
-      this.scene.scene.stop('Game');
-      this.scene.scene.start('GameOver');
-    }
+    // Commented out for now so we dont game over all the time during development
+
+    // if (this._health <= 0) {
+    //   this.scene.scene.stop("SongScene");   // stop overlay
+    //   this.scene.scene.stop('Game');
+    //   this.scene.scene.start('GameOver');
+    // }
   }
 }
