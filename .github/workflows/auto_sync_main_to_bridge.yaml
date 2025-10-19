@@ -16,7 +16,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Merge changes into sprite-branch
+    - name: Merge changes into assets-branch
       # GH actions/checkout requires git identity to be configured for security, top two commands handle that
       run: |
         git config user.name "${{ github.actor }}"
@@ -24,8 +24,8 @@ jobs:
         git config pull.rebase false
 
         git fetch origin
-        git checkout assets
+        git checkout 00-assets
         git pull origin main
-        git merge --no-ff -m "auto sync main changes to bridge branch" main
+        git merge --no-ff -m "auto sync main changes to assets branch" main
 
-        git push origin assets
+        git push origin 00-assets
