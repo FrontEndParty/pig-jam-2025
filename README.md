@@ -2,6 +2,7 @@
 
 ## Table Of Contents
 - [How to Contribute](#how-to-contribute)
+- [How to Merge Assets](#how-to-merge-assets)
 - [Template Project Structure](#template-project-structure)
 - [Requirements](#requirements)
 - [Available Commands](#available-commands)
@@ -54,6 +55,15 @@ git push origin your-new-branch
 2.
 
 <img src="./docs/.screenshots/open-pr-1.jpg"/>
+
+## How to Merge Assets
+- Checkout `00-assets` branch locally
+- Add whatever assets you want into the codebase
+- Commit your changes on `00-assets` and push this branch to the remote
+- Done. :)
+- The Actions work two-fold:
+  1. [auto_merge_bridge_to_main.yaml](https://github.com/colinwilliams91/helpful-gh-automations/actions/workflows/auto_merge_bridge_to_main.yaml) On push to designated "Bridge-Branch, automatically merged to `main`
+  2. [auto_sync_main_to_bridge.yaml](https://github.com/colinwilliams91/helpful-gh-automations/actions/workflows/auto_sync_main_to_bridge.yaml) On any merge into `main`, changes are merged into "Bridge-Branch" to ensure no merge conflicts when the other Action fires
 
 ## Template Project Structure
 ```
