@@ -36,6 +36,15 @@ git fetch origin
 git checkout your-new-branch
 ```
 - 🐷Develop :)
+- 🐷Push your changes up to the remote:
+```sh
+git push origin your-new-branch
+```
+- 🐷Go to the GitHub Repo https://github.com/FrontEndParty/pig-jam-2025
+- 🐷You should see a button to open a PR for the branch you just pushed up
+  - 🐖Or click "Pull Requests" then "New Pull Request", target the `main` branch
+  - 🐖Fill out the template
+  - 🐖Await review, once approved, merge into `main` branch
 
 #### Screenshots
 1.
