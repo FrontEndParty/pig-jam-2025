@@ -62,8 +62,7 @@ export class SongScene extends Phaser.Scene {
     const note = this.notes[this.nextIndex];
     const diff = elapsed - (note.time - this.songStart);
     if (diff > this.inputWindow) {
-      this.player._health -= 5;
-      this.player.check_if_dead();
+      this.player.loseHealth()
       if (note.sprite) note.sprite.setColor("#ff0000");
       console.log("Missed note!", this.player._health);
       this.nextIndex++;
