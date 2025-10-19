@@ -7,6 +7,7 @@ import Player from './Player';
  * the scene will transition to the "game over" screen.
  */
 export class Cop extends BaseNPC {
+  public originalX: integer;
 
   constructor(scene: BaseScene, x: number, y: number) {
     // Call the parent constructor from BaseNPC
@@ -22,6 +23,9 @@ export class Cop extends BaseNPC {
     // We can optionally adjust the physics body (hitbox) of the cop.
     // For example, to make it slightly smaller than the visual sprite.
     this.body?.setSize(this.width * 0.8, this.height * 0.9);
+
+    this.originalX = this.x; // call once when creating the cop
+
   }
 
   /**
@@ -56,23 +60,25 @@ export class Cop extends BaseNPC {
     );
   }
 
-public move(playerHealth: number) {
-  if (playerHealth <= 0) return;
+  public move(playerHealth: number) {
+    if (playerHealth <= 0) return;
 
-  const screenCenterX = this.scene.scale.width / 2;
-  const startX = 0 + this.width / 2; // bottom-left start
-  const fraction = (100 - playerHealth) / 100; // fraction of distance to move
+    const screenCenterX = this.scene.scale.width / 2;
+    const fraction = (100 - playerHealth) / 100; // fraction of full distance
 
-  const targetX = startX + fraction * (screenCenterX - startX);
-  const targetY = this.scene.scale.height - 100; // keep y fixed at bottom
+    // Target is always originalX + fraction * fullDistance
+    const targetX = this.originalX + fraction * (screenCenterX - this.originalX);
+    const targetY = this.y; // y stays fixed
 
-  this.scene.tweens.add({
-    targets: this,
-    x: targetX,
-    y: targetY,
-    ease: 'Power1',
-    duration: 100,
-  });
+    this.scene.tweens.add({
+      targets: this,
+      x: targetX,
+      y: targetY,
+      ease: 'Power1',
+      duration: 10,
+    });
+
+  }
 }
-}
 
+// x = full distance
