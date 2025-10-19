@@ -1,5 +1,6 @@
 import Player from '../objects/Player';
 import { BaseScene } from './BaseScene';
+import { Cop } from '../objects/Cop'; // 1. Import the new Cop class
 
 export class Game extends BaseScene
 {
@@ -26,7 +27,19 @@ export class Game extends BaseScene
     });
 
     this._msg_text.setOrigin(0.5);
+
+    // Create the player instance
     this._player = new Player(this, this.scale.width / 2, this.scale.height / 2);
+
+    // --- NEW CODE ADDED HERE ---
+
+    // 2. Create a new Cop instance and place it in the scene
+    const cop = new Cop(this, 150, 150);
+
+    // 3. Activate the collision that triggers the game over
+    cop.setupCollision(this._player);
+
+    // --- END OF NEW CODE ---
 
     this.listenForEvents();
   }
