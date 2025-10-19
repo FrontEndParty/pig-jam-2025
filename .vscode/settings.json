@@ -1,0 +1,38 @@
+{
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "never"
+  },
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "cSpell.words": [
+    "Phaser",
+    "phaser",
+    "phaserjs",
+    "phasermsg",
+    "GameObjects",
+    "Tilemaps",
+    "newdocs",
+    "gryzor",
+    "addEventListener",
+    "keydown",
+    "keyup",
+    "gameobject",
+    "vite",
+    "ntvs",
+    "njsproj",
+    "tsgen",
+    "spritesheets",
+  ]
+}
