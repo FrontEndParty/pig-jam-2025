@@ -46,6 +46,9 @@ export class Cop extends BaseNPC {
         // This is the callback function that executes when the overlap occurs.
         // It transitions the game to the GameOver scene.
         // --- THIS LINE HAS BEEN CORRECTED ---
+        
+        this.scene.scene.stop('Game'); // Use your existing scene key
+        this.scene.scene.stop('SongScene'); // Use your existing scene key
         this.scene.scene.start('GameOver'); // Use your existing scene key
       },
       undefined, // processCallback, not needed for this simple case

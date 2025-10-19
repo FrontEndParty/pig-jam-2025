@@ -3,6 +3,7 @@ import { BaseScene } from './BaseScene';
 import { Cop } from '../objects/Cop';
 import { BaseObstacle } from '../objects/BaseObstacle';
 import { Gnome } from '../objects/Gnome';
+import { SongScene } from "./SongScene";
 
 // --- HELPER OBSTACLE CLASS ---
 // In a larger project, you'd move these to their own files (e.g., src/objects/Cone.ts)
@@ -18,7 +19,7 @@ export class Game extends BaseScene
   private _camera: Phaser.Cameras.Scene2D.Camera;
   private _background: Phaser.GameObjects.Image;
   private _msg_text : Phaser.GameObjects.Text;
-  private _player: Player;
+  public _player: Player;
   private _obstacles: Phaser.GameObjects.Group; 
 
   constructor () {
@@ -42,6 +43,9 @@ export class Game extends BaseScene
     this._player = new Player(this, this.scale.width / 2, this.scale.height / 2);
     const cop = new Cop(this, 150, 150);
     cop.setupCollision(this._player);
+
+    this.scene.launch("SongScene"); // starts rhythm UI on top
+    this.scene.bringToTop("SongScene"); // ensures it's above others
 
     this._obstacles = this.add.group({ runChildUpdate: true });
 

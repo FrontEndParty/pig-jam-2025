@@ -5,7 +5,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   private _wasd?: { [key: string]: Phaser.Input.Keyboard.Key }
   private _speed: number
   private _gameScene: BaseScene
-  
+  public _health: integer
+
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'Player')
     this._gameScene = scene as BaseScene
@@ -24,7 +25,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }) as { [key: string]: Phaser.Input.Keyboard.Key }
 
     this._speed = 250
-
+    this._health = 100
   }
 
   public get gameScene (): BaseScene {
@@ -47,5 +48,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     direction.normalize().scale(this._speed)
     this.setVelocity(direction.x, direction.y)
+  }
+
+  public check_if_dead () {
+    if (this._health <= 0) {
+      this.scene.scene.stop("SongScene");   // stop overlay
+      this.scene.scene.stop('Game');
+      this.scene.scene.start('GameOver');
+    }
   }
 }
