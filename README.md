@@ -1,14 +1,46 @@
 # Phaser Vite TypeScript Template
 
 ## Table Of Contents
+- [How to Contribute](#how-to-contribute)
 - [Template Project Structure](#template-project-structure)
 - [Requirements](#requirements)
 - [Available Commands](#available-commands)
 - [Writing Code](#writing-code)
 - [Linting and Code Style](#-linting-and-code-style)
-- [Join the Phaser Community!](#join-the-phaser-community)
+- [Phaser Docs](#phaser-docs)
 
-This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow, w/ TypeScript support and scripts to generate production-ready builds. Forked from [https://github.com/phaserjs/template-webpack-ts] made by FrontEndParty for grab and go game jams.
+> This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow, w/ TypeScript support and scripts to generate production-ready builds. Forked from [https://github.com/phaserjs/template-webpack-ts] made by FrontEndParty for grab and go game jams.
+
+## How to Contribute
+- 🐷Install `Node.js` if you have not already. See [NODE](./docs/NODE.md) for 1st time help.
+- 🐷Clone the Repo:
+  - 🐖Copy this URL: https://github.com/FrontEndParty/pig-jam-2025.git
+  - 🐖Run the following commands in the directory you want to download the repo:
+```sh
+git clone https://github.com/FrontEndParty/pig-jam-2025.git
+```
+- 🐷Navigate into the repo and install the dependencies:
+```sh
+cd pig-jam-2025
+npm install
+```
+- 🐷Visit the [Project KanBan Board](https://github.com/orgs/FrontEndParty/projects/8)
+- 🐷Pick an Issue to work on
+  - 🐖Assign yourself as the "Assignee"
+  - 🐖On the bottom right click "create a branch"<sup>1</sup>
+    - 🐽Use the default values in the Dialog box
+  - 🐖Move the Issue to the "Doing" column in the Project KanBan Board
+- 🐷On your command line locally run the following:
+```sh
+git fetch origin
+git checkout your-new-branch
+```
+- 🐷Develop :)
+
+#### Screenshots
+1.
+
+<img src="./docs/.screenshots/create-a-branch.jpg"/>
 
 ## Template Project Structure
 ```
@@ -51,9 +83,8 @@ phase-game-template/
 | `npm run build` | Create a production build in the `dist` folder |
 | `npm run lint` | Run ESLint to check code (very relaxed rules for game jam) |
 
-## Writing Code
-
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development server by running `npm run dev`.
+## Running the app
+You can start the local development server by running `npm run dev`.
 
 The local development server runs on `http://localhost:8080` by default.
 
@@ -71,7 +102,7 @@ If you're using VSCode, we recommend installing the [ESLint extension](https://m
 
 The philosophy: if it compiles and runs, it's good enough for a game jam! 🚀
 
-## Join the Phaser Community!
+## Phaser Docs
 
 **Learn:** [API Docs](https://newdocs.phaser.io), [StackOverflow](https://stackoverflow.com/questions/tagged/phaser-framework)<br />
 **Discord:** Join us on [Discord](https://discord.gg/phaser)<br />
