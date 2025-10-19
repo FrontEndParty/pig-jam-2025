@@ -26,7 +26,8 @@
         "alwaysStrict": false,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
-        "noFallthroughCasesInSwitch": false
+        "noFallthroughCasesInSwitch": false,
+        "forceConsistentCasingInFileNames": true
     },
     "include": [
         "src"
