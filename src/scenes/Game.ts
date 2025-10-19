@@ -20,6 +20,7 @@ export class Game extends BaseScene
   private _background: Phaser.GameObjects.Image;
   private _msg_text : Phaser.GameObjects.Text;
   public _player: Player;
+  public _cop: Cop;
   private _obstacles: Phaser.GameObjects.Group; 
 
   constructor () {
@@ -33,16 +34,16 @@ export class Game extends BaseScene
     this._background = this.add.image(512, 384, 'background');
     this._background.setAlpha(0.5);
 
-    this._msg_text = this.add.text(250, 30, `Value: ${this.dataStore.exampleValue}`, {
-        fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-        stroke: '#000000', strokeThickness: 8,
-        align: 'center'
-    });
-    this._msg_text.setOrigin(0.5);
+    // this._msg_text = this.add.text(250, 30, `Value: ${this.dataStore.exampleValue}`, {
+    //     fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
+    //     stroke: '#000000', strokeThickness: 8,
+    //     align: 'center'
+    // });
+    // this._msg_text.setOrigin(0.5);
 
-    this._player = new Player(this, this.scale.width / 2, this.scale.height / 2);
-    const cop = new Cop(this, 150, 150);
-    cop.setupCollision(this._player);
+    this._player = new Player(this, this.scale.width / 2, this.scale.height - 100);
+    this._cop = new Cop(this, 50, this.scale.height - 100);
+    this._cop.setupCollision(this._player);
 
     this.scene.launch("SongScene"); // starts rhythm UI on top
     this.scene.bringToTop("SongScene"); // ensures it's above others

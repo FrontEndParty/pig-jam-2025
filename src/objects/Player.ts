@@ -1,15 +1,15 @@
-import { BaseScene } from '../scenes/BaseScene'
+import { Game } from '../scenes/Game'
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   private _cursors?: Phaser.Types.Input.Keyboard.CursorKeys
   private _wasd?: { [key: string]: Phaser.Input.Keyboard.Key }
   private _speed: number
-  private _gameScene: BaseScene
+  private _gameScene: Game
   public _health: integer
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'Player')
-    this._gameScene = scene as BaseScene
+    this._gameScene = scene as Game
 
     this.setScale(4) // the player sprite is too small by default
     this._gameScene.add.existing(this)
@@ -28,7 +28,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this._health = 100
   }
 
-  public get gameScene (): BaseScene {
+  public get gameScene (): Game {
     return this._gameScene;
   }
 
@@ -50,7 +50,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setVelocity(direction.x, direction.y)
   }
 
-  public check_if_dead () {
+  public checkIfDead () {
     // Commented out for now so we dont game over all the time during development
 
     // if (this._health <= 0) {
@@ -58,5 +58,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     //   this.scene.scene.stop('Game');
     //   this.scene.scene.start('GameOver');
     // }
+  }
+
+  public loseHealth(amount: integer = 5): void {
+    this._health -= amount
+    this.checkIfDead()
+    this.gameScene._cop.move(this._health)
   }
 }

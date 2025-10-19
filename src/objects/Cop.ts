@@ -55,5 +55,24 @@ export class Cop extends BaseNPC {
       this // The context for the callback
     );
   }
+
+public move(playerHealth: number) {
+  if (playerHealth <= 0) return;
+
+  const screenCenterX = this.scene.scale.width / 2;
+  const startX = 0 + this.width / 2; // bottom-left start
+  const fraction = (100 - playerHealth) / 100; // fraction of distance to move
+
+  const targetX = startX + fraction * (screenCenterX - startX);
+  const targetY = this.scene.scale.height - 100; // keep y fixed at bottom
+
+  this.scene.tweens.add({
+    targets: this,
+    x: targetX,
+    y: targetY,
+    ease: 'Power1',
+    duration: 100,
+  });
+}
 }
 
