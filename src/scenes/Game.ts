@@ -1,18 +1,10 @@
 import Player from '../objects/Player';
 import { BaseScene } from './BaseScene';
 import { Cop } from '../objects/Cop';
-import { BaseObstacle } from '../objects/BaseObstacle';
 import { Gnome } from '../objects/Gnome';
+import { Turtle } from '../objects/Turtle';
 import { SongScene } from "./SongScene";
 
-// --- HELPER OBSTACLE CLASS ---
-// In a larger project, you'd move these to their own files (e.g., src/objects/Cone.ts)
-class Cone extends BaseObstacle {
-  constructor(scene: BaseScene, x: number, y: number) {
-    super(scene, x, y, 'cone', 5);
-  }
-}
-// -----------------------------
 
 export class Game extends BaseScene
 {
@@ -41,6 +33,21 @@ export class Game extends BaseScene
     this._msg_text.setOrigin(0.5);
 
     this._player = new Player(this, this.scale.width / 2, this.scale.height / 2);
+
+    this.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+        frameRate: 8,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'run',
+        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 11 }),
+        frameRate: 12,
+        repeat: -1
+    });
+
     const cop = new Cop(this, 150, 150);
     cop.setupCollision(this._player);
 
@@ -64,7 +71,7 @@ export class Game extends BaseScene
    * This method is easily scalable by adding new classes to the `obstacleTypes` array.
    */
   private spawnObstacle(): void {
-    const obstacleTypes = [Cone, Gnome]; // <-- To add more obstacles, just add their class name here!
+    const obstacleTypes = [Turtle, Gnome]; // <-- To add more obstacles, just add their class name here!
     
     const spawnX = this.scale.width + 100;
     const spawnY = this.scale.height - 60; 
