@@ -15,5 +15,24 @@
   },
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  },
+  "cSpell.words": [
+    "Phaser",
+    "phaser",
+    "phaserjs",
+    "phasermsg",
+    "GameObjects",
+    "Tilemaps",
+    "newdocs",
+    "gryzor",
+    "addEventListener",
+    "keydown",
+    "keyup",
+    "gameobject",
+    "vite",
+    "ntvs",
+    "njsproj",
+    "tsgen",
+    "spritesheets",
+  ]
 }
