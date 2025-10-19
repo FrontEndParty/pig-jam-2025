@@ -41,7 +41,7 @@ git checkout your-new-branch
 git push origin your-new-branch
 ```
 - 🐷Go to the GitHub Repo https://github.com/FrontEndParty/pig-jam-2025
-- 🐷You should see a button to open a PR for the branch you just pushed up
+- 🐷You should see a button to open a PR for the branch you just pushed up<sup>2</sup>
   - 🐖Or click "Pull Requests" then "New Pull Request", target the `main` branch
   - 🐖Fill out the template
   - 🐖Await review, once approved, merge into `main` branch
@@ -50,6 +50,10 @@ git push origin your-new-branch
 1.
 
 <img src="./docs/.screenshots/create-a-branch.jpg"/>
+
+2.
+
+<img src="./docs/.screenshots/open-pr-1.jpg"/>
 
 ## Template Project Structure
 ```
