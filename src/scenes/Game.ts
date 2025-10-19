@@ -56,12 +56,13 @@ export class Game extends BaseScene
 
     this._obstacles = this.add.group({ runChildUpdate: true });
 
-    this.time.addEvent({
-      delay: 1500, 
-      callback: this.spawnObstacle,
-      callbackScope: this,
-      loop: true,
-    });
+    //TODO: add this funciton back if you want the obstacles to
+    // this.time.addEvent({
+    //   delay: 1500, 
+    //   callback: this.spawnObstacle,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
 
     this.listenForEvents();
   }
