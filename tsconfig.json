@@ -15,12 +15,18 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-        /* Linting */
-        "strict": true,
+        /* Linting - Relaxed for game jam */
+        "strict": false,
+        "noImplicitAny": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": false,
+        "strictBindCallApply": false,
         "strictPropertyInitialization": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noImplicitThis": false,
+        "alwaysStrict": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noFallthroughCasesInSwitch": false
     },
     "include": [
         "src"

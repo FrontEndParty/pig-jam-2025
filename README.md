@@ -65,6 +65,7 @@ This template has been updated for:
 | `npm install` | Install project dependencies |
 | `npm run dev` | Launch a development web server |
 | `npm run build` | Create a production build in the `dist` folder |
+| `npm run lint` | Run ESLint to check code (very relaxed rules for game jam) |
 | `npm run dev-nolog` | Launch a development web server without sending anonymous data (see "About log.js" below) |
 | `npm run build-nolog` | Create a production build in the `dist` folder without sending anonymous data (see "About log.js" below) |
 
@@ -75,6 +76,18 @@ After cloning the repo, run `npm install` from your project directory. Then, you
 The local development server runs on `http://localhost:8080` by default. Please see the Vite documentation if you wish to change this, or add SSL support.
 
 Once the server is running you can edit any of the files in the `src` folder. Vite will automatically recompile your code and then reload the browser.
+
+### Linting and Code Style
+
+This project uses **very relaxed** linting rules optimized for rapid game jam development:
+
+- **TypeScript** is configured with minimal strictness - only catching errors that would prevent compilation
+- **ESLint** is configured with all style rules turned off - focus on shipping, not on perfect code
+- **VSCode settings** are shared in the `.vscode` folder to provide a consistent experience
+
+If you're using VSCode, we recommend installing the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint). The shared settings will automatically configure it for you.
+
+The philosophy: if it compiles and runs, it's good enough for a game jam! 🚀
 
 ## Handling Assets
 

@@ -12,8 +12,7 @@ lerna-debug.log*
 plugins/spine*/spine-runtimes/
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+# VSCode settings are now shared for the game jam
 .idea
 .DS_Store
 *.suo
