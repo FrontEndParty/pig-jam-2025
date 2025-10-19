@@ -33,6 +33,9 @@ export class Preloader extends BaseScene
         this.load.setPath('assets');
 
         this.load.image('logo', 'images/logo.png');
+
+        // Audio
+        this.load.audio('song_01', 'sounds/piggy_two_step_01.mp3');
     }
 
     create ()
