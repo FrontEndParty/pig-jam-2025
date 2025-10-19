@@ -14,10 +14,11 @@ export class BaseObstacle extends Phaser.GameObjects.Image {
      * @param texture The texture key for the obstacle's appearance.
      * @param speed The horizontal speed at which the obstacle moves left.
      */
-    constructor(scene: BaseScene, x: number, y: number, texture: string, speed: number) {
+    constructor(scene: BaseScene, x: number, y: number, texture: string, speed: number, scale:number) {
         super(scene, x, y, texture);
         
         this._speed = speed;
+        this.setScale(scale);
         scene.add.existing(this);
     }
 

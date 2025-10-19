@@ -12,13 +12,13 @@ export class Cop extends BaseNPC {
     // Call the parent constructor from BaseNPC
     super(
       scene,
-      'Cop', // This is the texture key for the cop sprite
+      'cop', // This is the texture key for the cop sprite
       'Police Officer', // The name of the NPC
       x,
       y,
       false // This NPC is not interactable with a button press
     );
-
+    this.setScale(0.1);
     // We can optionally adjust the physics body (hitbox) of the cop.
     // For example, to make it slightly smaller than the visual sprite.
     this.body?.setSize(this.width * 0.8, this.height * 0.9);
