@@ -38,6 +38,8 @@ export class Preloader extends BaseScene
 
         // 1. Add the new Game Over background
         this.load.image('gameOverBackground', 'images/game_over_bg.jpg');
+  // 1b. Add the main Game background
+  this.load.image('gameBackground', 'images/game_bg.jpg');
 
         // 2. Add assets needed for the Game scene that were missing
         this.load.spritesheet('player', '/images/sprites/pig/pig_spin_sprite.png', {
