@@ -17,13 +17,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, 'player')
     this._gameScene = scene as Game
 
-    this.setScale(0.25)
+    this.setScale(.75)
     this._gameScene.add.existing(this)
     this._gameScene.physics.add.existing(this)
 
-    // 2. Adjust the collision body for a character sprite.
-    // This is often taller than it is wide. You may need to tweak these values.
-     this.body?.setSize(120, 80);
+    // // 2. Adjust the collision body for a character sprite.
+    // // This is often taller than it is wide. You may need to tweak these values.
+    //  this.body?.setSize(120, 80);
 
     this._cursors = this._gameScene.input.keyboard?.createCursorKeys()
     // this._wasd = this._gameScene.input.keyboard?.addKeys({
@@ -43,7 +43,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this._health = 100
 
     // 3. Start the player in the 'idle' animation by default.
-    this.anims.play('idle', true);
+    this.anims.play('pig-run', true);
+    this.flipX = true;
+    this.setScale
   }
 
   public get gameScene (): Game {
@@ -111,14 +113,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   public checkIfDead () {
-    // TODO: Uncomment
-    // Commented out for now so we dont game over all the time during development
-
-    // if (this._health <= 0) {
-    //   this.scene.scene.stop("SongScene");   // stop overlay
-    //   this.scene.scene.stop('Game');
-    //   this.scene.scene.start('GameOver');
-    // }
+    if (this._health <= 0) {
+      this.scene.scene.stop("SongScene");   // stop overlay
+      this.scene.scene.stop('Game');
+      this.scene.scene.start('GameOver');
+    }
   }
 
   public loseHealth(amount: integer = 5): void {
