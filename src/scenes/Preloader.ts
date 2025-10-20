@@ -38,12 +38,22 @@ export class Preloader extends BaseScene
 
         // 1. Add the new Game Over background
         this.load.image('gameOverBackground', 'images/game_over_bg.jpg');
+        // 1b. Add the main Game background
+        this.load.image('gameBackground', 'images/game_bg.jpg');
 
         // 2. Add assets needed for the Game scene that were missing
+        this.load.spritesheet('PigRun', '/images/sprites/pig/pig_run_sprite.png', {
+          frameWidth: 480,
+          frameHeight: 334,
+        })
         this.load.spritesheet('player', '/images/sprites/pig/pig_spin_sprite.png', {
           frameWidth: 588,  // Width of one frame
           frameHeight: 375  // Height of one frame
         });
+        this.load.spritesheet('CopWalk', '/images/sprites/cop_sprite.png', {
+          frameWidth: 2360,
+          frameHeight: 1640,
+        })
         this.load.spritesheet('cop', 'images/sprites/cop_sprite_cropped.png',{
           frameWidth: 939,
           frameHeight: 1252
@@ -61,12 +71,25 @@ export class Preloader extends BaseScene
 
         // Audio
         this.load.audio('song_01', 'sounds/piggy_two_step_01.mp3');
-        this.load.audio('dead-song', 'sounds/dead_song.mp3');
+        this.load.audio('dead-song', 'sounds/dead_song_00.mp3');
     }
 
     create ()
     {
         //  When all the assets have loaded, move to the MainMenu
         this.scene.start('MainMenu');
+
+        this.anims.create({
+          key: 'pig-run',
+          frames: this.anims.generateFrameNumbers('PigRun', { start: 0, end: 9}),
+          frameRate: 15,
+          repeat: -1,
+        });
+        this.anims.create({
+          key: 'cop-walk',
+          frames: this.anims.generateFrameNumbers('CopWalk', { start: 0, end: 9}),
+          frameRate: 15,
+          repeat: -1,
+        });
     }
 }

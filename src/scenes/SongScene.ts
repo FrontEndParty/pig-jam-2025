@@ -3,7 +3,7 @@
 import { Note } from '../util/Note';
 import { Game } from './Game'
 import { song01Beats } from '../data/song01-beats';
-
+import { KEYS } from '../util/KEYS'
 
 export class SongScene extends Phaser.Scene {
   songStart = 0;
@@ -72,11 +72,16 @@ export class SongScene extends Phaser.Scene {
     const note = this.notes[this.nextIndex];
     const diff = elapsed - (note.time - this.songStart);
     if (diff > this.inputWindow) {
-      this.player.loseHealth()
-      if (note.sprite) note.sprite.setColor("#ff0000");
-      console.log("Missed note!", this.player._health);
+      if (this.player.checkInput() !== this.indexToFUCKFactory(note.inputs[0])){
+        this.player.loseHealth()
+        if (note.sprite) note.sprite.setColor("#ff0000");
+        console.log("Missed note!", this.player._health);
+      }
+      else {
+        if (note.sprite) note.sprite.setColor("#0d280fff");
+        console.log("Hit note!!!")
+      }
       this.nextIndex++;
-
     }
   }
 
@@ -104,7 +109,7 @@ renderNote(note: Note, x: number, yBase: number = 0) {
   const laneY = yBase + note.inputs[0] * laneSpacing;
 
   if (!note.sprite) {
-    note.sprite = this.add.text(x, laneY, note.inputs[0].toString(), {
+    note.sprite = this.add.text(x, laneY, this.indexToFUCKFactory(note.inputs[0]), {
       fontSize: "24px",
       color: "#ffffff",
     }).setOrigin(0.5);
@@ -125,7 +130,6 @@ renderNote(note: Note, x: number, yBase: number = 0) {
       note.sprite.setScale(1);
       note.sprite.setAlpha(1);
     }
-
     if (x < -50) {
       note.sprite.destroy();
       note.active = false;
@@ -144,7 +148,7 @@ renderNote(note: Note, x: number, yBase: number = 0) {
         laneY,
         this.scale.width,
         30,
-        0x888888,
+        0xE9ED2B,
         0.5
       ).setOrigin(0, 0.5); // align top-left if full width
       lane.setDepth(0);      // behind notes
@@ -152,4 +156,18 @@ renderNote(note: Note, x: number, yBase: number = 0) {
     }
   }
 
+  private indexToFUCKFactory(index: number): KEYS {
+    switch (index) {
+      case 0:
+        return KEYS.F;
+      case 1:
+        return KEYS.U;
+      case 2:
+        return KEYS.C;
+      case 3:
+        return KEYS.K;
+      default:
+        throw new Error(`Invalid index: ${index}`);
+    }
+  }
 }
