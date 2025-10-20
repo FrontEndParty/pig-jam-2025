@@ -27,11 +27,14 @@ const config: Types.Core.GameConfig = {
         debug: true, // shows the collision shape and velocity
       }
     },
+    audio: {
+        disableWebAudio: false,
+    },
     plugins: {
         global: [
           { key: 'DataStorePlugin', plugin: DataStorePlugin, start: true }
         ]
-    }, 
+    },
     scene: [
         Boot,
         Preloader,

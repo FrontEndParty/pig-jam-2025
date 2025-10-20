@@ -13,7 +13,7 @@ export class Game extends BaseScene
   private _msg_text : Phaser.GameObjects.Text;
   public _player: Player;
   public _cop: Cop;
-  private _obstacles: Phaser.GameObjects.Group; 
+  private _obstacles: Phaser.GameObjects.Group;
 
   constructor () {
     super('Game');
@@ -22,7 +22,7 @@ export class Game extends BaseScene
   public create () {
     this._camera = this.cameras.main;
     this._camera.setBackgroundColor(0x00ff00);
-  
+
     this._background = this.add.image(512, 384, 'background');
     this._background.setAlpha(0.5);
 
@@ -57,7 +57,7 @@ export class Game extends BaseScene
     this._obstacles = this.add.group({ runChildUpdate: true });
 
     this.time.addEvent({
-      delay: 1500, 
+      delay: 1500,
       callback: this.spawnObstacle,
       callbackScope: this,
       loop: true,
@@ -72,9 +72,9 @@ export class Game extends BaseScene
    */
   private spawnObstacle(): void {
     const obstacleTypes = [Turtle, Gnome]; // <-- To add more obstacles, just add their class name here!
-    
+
     const spawnX = this.scale.width + 100;
-    const spawnY = this.scale.height - 60; 
+    const spawnY = this.scale.height - 60;
 
     // 1. Pick a random class from the array
     const RandomObstacleClass = Phaser.Math.RND.pick(obstacleTypes);
