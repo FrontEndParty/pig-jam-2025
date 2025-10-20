@@ -1,20 +1,23 @@
-import { BaseScene } from '../scenes/BaseScene'
+import { Game } from '../scenes/Game'
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   private _cursors?: Phaser.Types.Input.Keyboard.CursorKeys
   private _wasd?: { [key: string]: Phaser.Input.Keyboard.Key }
   private _speed: number
-  private _gameScene: BaseScene
+  private _gameScene: Game
   public _health: integer
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, 'Player')
-    this._gameScene = scene as BaseScene
+    super(scene, x, y, 'player')
+    this._gameScene = scene as Game
 
-    this.setScale(4) // the player sprite is too small by default
+    this.setScale(0.25)
     this._gameScene.add.existing(this)
     this._gameScene.physics.add.existing(this)
-    this.body?.setSize(16, 16) // the collision shape is now too big
+
+    // 2. Adjust the collision body for a character sprite.
+    // This is often taller than it is wide. You may need to tweak these values.
+     this.body?.setSize(120, 80);
 
     this._cursors = this._gameScene.input.keyboard?.createCursorKeys()
     this._wasd = this._gameScene.input.keyboard?.addKeys({
@@ -26,9 +29,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     this._speed = 250
     this._health = 100
+
+    // 3. Start the player in the 'idle' animation by default.
+    this.anims.play('idle', true);
   }
 
-  public get gameScene (): BaseScene {
+  public get gameScene (): Game {
     return this._gameScene;
   }
 
@@ -48,9 +54,37 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     direction.normalize().scale(this._speed)
     this.setVelocity(direction.x, direction.y)
+
+    // 4. Call the new method to update animations every frame.
+    //TODO: comment this back in
+    // this.updateAnimation();
   }
 
-  public check_if_dead () {
+  /**
+   * Checks the player's velocity and plays the appropriate animation ('run' or 'idle').
+   * Also flips the sprite horizontally to face the direction of movement.
+   */
+  private updateAnimation(): void {
+    const velocity = this.body?.velocity;
+
+    // If the player is moving
+    if (velocity && (velocity.x !== 0 || velocity.y !== 0)) {
+        this.anims.play('run', true);
+
+        // Flip sprite based on horizontal direction
+        if (velocity.x < 0) {
+            this.flipX = true; // Facing left
+        } else if (velocity.x > 0) {
+            this.flipX = false; // Facing right
+        }
+    } 
+    // If the player is standing still
+    else {
+        this.anims.play('idle', true);
+    }
+  }
+
+  public checkIfDead () {
     // Commented out for now so we dont game over all the time during development
 
     // if (this._health <= 0) {
@@ -58,5 +92,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     //   this.scene.scene.stop('Game');
     //   this.scene.scene.start('GameOver');
     // }
+  }
+
+  public loseHealth(amount: integer = 5): void {
+    this._health -= amount
+    this.checkIfDead()
+    this.gameScene._cop.move(this._health)
   }
 }

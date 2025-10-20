@@ -13,6 +13,7 @@ export class SongScene extends Phaser.Scene {
   noteSpeed = 300;   // px/sec
   hitX = 0;
   player = null
+  lanes = null
 
   constructor() {
     super("SongScene");
@@ -36,6 +37,7 @@ export class SongScene extends Phaser.Scene {
 
     const gameScene = this.scene.get("Game") as Game; // cast to your Game class
     this.player = gameScene._player;
+    this.createLanes();
   }
 
   generateNotes() {
@@ -62,8 +64,7 @@ export class SongScene extends Phaser.Scene {
     const note = this.notes[this.nextIndex];
     const diff = elapsed - (note.time - this.songStart);
     if (diff > this.inputWindow) {
-      this.player._health -= 5;
-      this.player.check_if_dead();
+      this.player.loseHealth()
       if (note.sprite) note.sprite.setColor("#ff0000");
       console.log("Missed note!", this.player._health);
       this.nextIndex++;
@@ -73,7 +74,7 @@ export class SongScene extends Phaser.Scene {
 
   updateNotes(now: number) {
     const screenW = this.scale.width;
-    const noteY = this.scale.height * 0.1; // top band
+    const noteY = (this.scale.height * 0.1) - 35; // top band
 
     this.notes.forEach(note => {
       if (!note.active) return;
@@ -89,19 +90,23 @@ export class SongScene extends Phaser.Scene {
       this.renderNote(note, posX, noteY);
     });
   }
+renderNote(note: Note, x: number, yBase: number = 0) {
+  // Map note index (0-3) to a lane offset
+  const laneSpacing = 40; // pixels between lanes
+  const laneY = yBase + note.inputs[0] * laneSpacing;
 
-  renderNote(note: Note, x: number, y: number) {
-    if (!note.sprite) {
-      note.sprite = this.add.text(x, y, note.inputs[0].toString(), {
-        fontSize: "24px",
-        color: "#ffffff",
-      }).setOrigin(0.5);
-    } else {
-      note.sprite.x = x;
-      note.sprite.setVisible(true);
-    }
+  if (!note.sprite) {
+    note.sprite = this.add.text(x, laneY, note.inputs[0].toString(), {
+      fontSize: "24px",
+      color: "#ffffff",
+    }).setOrigin(0.5);
+  } else {
+    note.sprite.x = x;
+    note.sprite.y = laneY;
+    note.sprite.setVisible(true);
+  }
 
-    const distanceToHit = Math.abs(x - this.hitX);
+  const distanceToHit = Math.abs(x - this.hitX);
     if (distanceToHit < 10) {
       note.sprite.setScale(1.5);
       note.sprite.setAlpha(1);
@@ -118,4 +123,25 @@ export class SongScene extends Phaser.Scene {
       note.active = false;
     }
   }
+
+  // Create four persistent lanes
+  private createLanes(yBase: number = 40) {
+    const laneSpacing = 40;
+    this.lanes = [];
+
+    for (let i = 0; i < 4; i++) {
+      const laneY = yBase + i * laneSpacing;
+      const lane = this.add.rectangle(
+        this.hitX,      // or full width if you want horizontal bars
+        laneY,
+        this.scale.width,
+        30,
+        0x888888,
+        0.5
+      ).setOrigin(0, 0.5); // align top-left if full width
+      lane.setDepth(0);      // behind notes
+      this.lanes.push(lane);
+    }
+  }
+
 }
