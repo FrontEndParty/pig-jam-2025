@@ -136,7 +136,7 @@ renderNote(note: Note, x: number, yBase: number = 0) {
         laneY,
         this.scale.width,
         30,
-        0x888888,
+        0xE9ED2B,
         0.5
       ).setOrigin(0, 0.5); // align top-left if full width
       lane.setDepth(0);      // behind notes
