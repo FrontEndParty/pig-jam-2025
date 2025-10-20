@@ -1,3 +1,4 @@
+import { Time } from 'phaser'
 import { Game } from '../scenes/Game'
 import { KEYS } from '../util/KEYS'
 
@@ -10,6 +11,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   private _gameScene: Game
   public _health: integer
   public _pressed: KEYS | null
+  private _inputResetTimer?: Phaser.Time.TimerEvent;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'player')
@@ -62,25 +64,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     // if (this._cursors?.down.isDown || this._wasd?.down.isDown) {
     //     direction.y += 1
     // }
-
+    // this.handleInput()
     if (this._fuck?.f.isDown) {
-        console.log("f")
-        this._pressed = KEYS.F
+        this.handleInput(KEYS.F)
     }
     else if (this._fuck?.u.isDown) {
-        console.log("u")
-        this._pressed = KEYS.U
+        this.handleInput(KEYS.U)
     }
     else if (this._fuck?.c.isDown) {
-        console.log("c")
-        this._pressed = KEYS.C
+        this.handleInput(KEYS.C)
     }
     else if (this._fuck?.k.isDown) {
-        console.log("k")
-        this._pressed = KEYS.K
-    }
-    else {
-      this._pressed = null
+        this.handleInput(KEYS.K)
     }
 
     direction.normalize().scale(this._speed)
@@ -134,5 +129,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   public checkInput(): KEYS | null {
     return this._pressed
+  }
+
+  private handleInput(input: KEYS) {
+    // console.log(`pressed: ${input}`)
+    this._pressed = input;
+
+    // Cancel any previous reset timer
+    if (this._inputResetTimer) {
+      this._inputResetTimer.remove(false);
+    }
+
+    // Start a new one
+    this._inputResetTimer = this.scene.time.delayedCall(50, () => {
+      this._pressed = null;
+      this._inputResetTimer = undefined;
+      // console.log("pressed input timeout")
+    });
   }
 }
