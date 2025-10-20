@@ -2,12 +2,11 @@
 // This scene handles input streaming and anything else you think should go here.
 import { Note } from '../util/Note';
 import { Game } from './Game'
+import { song01Beats } from '../data/song01-beats';
 
 
 export class SongScene extends Phaser.Scene {
-  bpm = 190;
   songStart = 0;
-  songLength = 100; // seconds
   notes: Note[] = [];
   nextIndex = 0;
   inputWindow = 100; // ms ± window
@@ -21,7 +20,7 @@ export class SongScene extends Phaser.Scene {
 
   create() {
     this.songStart = this.time.now;
-    this.generateNotes(this.songLength);
+    this.generateNotes(); // No parameter needed - uses song01Beats data
 
     // Hit line (¼ across screen, near top)
     this.hitX = this.scale.width * 0.25;
@@ -39,15 +38,16 @@ export class SongScene extends Phaser.Scene {
     this.player = gameScene._player;
   }
 
-  generateNotes(secondsAhead: number) {
-    const beatInterval = (60 / this.bpm) * 1000;
-    const totalBeats = Math.floor((secondsAhead * 1000) / beatInterval);
-
-    this.notes = Array.from({ length: totalBeats }, (_, i) => {
-      const time = i * beatInterval + this.songStart;
-      const inputs = [Phaser.Math.Between(0, 3)];
+  generateNotes() {
+    // Use actual beat timings from song01-beats.ts
+    // Convert beat times (in seconds) to absolute timestamps (ms since songStart)
+    this.notes = song01Beats.map(beatTime => {
+      const time = this.songStart + (beatTime * 1000); // Convert seconds to ms
+      const inputs = [Phaser.Math.Between(0, 3)]; // Random button assignment
       return { time, inputs, active: true };
     });
+    
+    console.log(`Loaded ${this.notes.length} notes from song data`);
   }
 
   update() {
