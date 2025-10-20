@@ -21,13 +21,13 @@ export class Game extends BaseScene
 
   public create () {
     this._camera = this.cameras.main;
-    this._camera.setBackgroundColor(0x00ff00);
+    // this._camera.setBackgroundColor(0x00ff00);
     
-    this._background.setAlpha(0.5);
+   
     // Prefer the dedicated game background if available, otherwise fall back to the generic 'background'
     const bgKey = this.textures.exists('gameBackground') ? 'gameBackground' : 'background';
     this._background = this.add.image(this.scale.width / 2, this.scale.height / 2, bgKey);
-
+    // this._background.setAlpha(0.5);
     // Scale background to cover the game area while preserving aspect ratio
     const scaleX = this.scale.width / this._background.width;
     const scaleY = this.scale.height / this._background.height;
