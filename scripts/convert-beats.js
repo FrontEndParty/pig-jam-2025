@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Input file path (adjust if needed)
-const INPUT_FILE = path.join(__dirname, '../public/assets/beat_labels_2.txt');
+const INPUT_FILE = path.join(__dirname, '../public/assets/beat_labels_3.txt');
 // Output file path
 const OUTPUT_FILE = path.join(__dirname, '../src/data/song01-beats.ts');
 
@@ -33,7 +33,7 @@ try {
   const tsContent = `/**
  * Beat timestamps for Song 01
  *
- * Generated from beat_labels_2.txt
+ * Generated from beat_labels_3.txt
  * Total beats: ${beats.length}
  * Duration: ~${Math.ceil(beats[beats.length - 1])} seconds
  *
