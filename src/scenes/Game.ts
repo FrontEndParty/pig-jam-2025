@@ -63,7 +63,6 @@ export class Game extends BaseScene
       loop: true,
     });
 
-    this.sound.play('song_01', { volume: 0.5 });
     this.listenForEvents();
   }
 

@@ -20,9 +20,6 @@ export class SongScene extends Phaser.Scene {
   }
 
   create() {
-    this.songStart = this.time.now;
-    this.generateNotes(); // No parameter needed - uses song01Beats data
-
     // Hit line (¼ across screen, near top)
     this.hitX = this.scale.width * 0.25;
     const line = this.add.rectangle(
@@ -38,6 +35,15 @@ export class SongScene extends Phaser.Scene {
     const gameScene = this.scene.get("Game") as Game; // cast to your Game class
     this.player = gameScene._player;
     this.createLanes();
+
+    // Start music and notes AFTER everything is setup and rendered
+    // Use nextTick or small delay to ensure scene is fully visible
+    this.time.delayedCall(100, () => {
+      this.songStart = this.time.now;
+      this.sound.play('song_01', { volume: 0.5 });
+      this.generateNotes();
+      console.log('Song started at:', this.songStart);
+    });
   }
 
   generateNotes() {
@@ -48,11 +54,13 @@ export class SongScene extends Phaser.Scene {
       const inputs = [Phaser.Math.Between(0, 3)]; // Random button assignment
       return { time, inputs, active: true };
     });
-    
+
     console.log(`Loaded ${this.notes.length} notes from song data`);
   }
 
   update() {
+    if (this.songStart === 0 || this.notes.length === 0) return;
+
     const now = this.time.now;
     const elapsed = now - this.songStart;
     this.checkNext(elapsed);
@@ -68,7 +76,7 @@ export class SongScene extends Phaser.Scene {
       if (note.sprite) note.sprite.setColor("#ff0000");
       console.log("Missed note!", this.player._health);
       this.nextIndex++;
-      
+
     }
   }
 
