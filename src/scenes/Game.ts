@@ -34,7 +34,7 @@ export class Game extends BaseScene
     // this._msg_text.setOrigin(0.5);
 
     this._player = new Player(this, this.scale.width / 2, this.scale.height - 100);
-    this._cop = new Cop(this, 50, this.scale.height - 100);
+    this._cop = new Cop(this, 0, this.scale.height - 100);
     // this._cop.setupCollision(this._player);
 
     this.anims.create({
