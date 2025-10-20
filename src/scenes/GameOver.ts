@@ -15,6 +15,8 @@ export class GameOver extends BaseScene
 
         // 1. Add the background image but don't worry about its size yet.
         const bg = this.add.image(this.scale.width / 2, this.scale.height / 2, 'gameOverBackground');
+        this.sound.stopAll(); // Stop any currently playing sounds
+        this.sound.play('dead-song', { volume: 0.5, loop: true });
 
         // 2. Calculate the scaling factors for both width and height.
         // This tells us how much we'd need to scale the image to match the screen's width and height.
@@ -28,7 +30,7 @@ export class GameOver extends BaseScene
         // 4. Apply the calculated scale to the image.
         // The image will now cover the screen without distortion.
         bg.setScale(scale);
-        
+
         // --- END OF BACKGROUND UPDATE ---
 
 
