@@ -1,4 +1,5 @@
 import { BaseScene } from '../scenes/BaseScene';
+import { Game } from '../scenes/Game';
 import { BaseNPC } from './BaseNPC';
 import Player from './Player';
 
@@ -8,8 +9,9 @@ import Player from './Player';
  */
 export class Cop extends BaseNPC {
   public originalX: integer;
+  private scene: Game;
 
-  constructor(scene: BaseScene, x: number, y: number) {
+  constructor(scene: Game, x: number, y: number) {
     // Call the parent constructor from BaseNPC
     super(
       scene,
@@ -19,13 +21,15 @@ export class Cop extends BaseNPC {
       y,
       false // This NPC is not interactable with a button press
     );
+
+    this.originalX = this.x; // call once when creating the cop
     this.setScale(0.1);
+    this.flipX = true;
     // We can optionally adjust the physics body (hitbox) of the cop.
     // For example, to make it slightly smaller than the visual sprite.
     this.body?.setSize(this.width * 0.8, this.height * 0.9);
-
-    this.originalX = this.x; // call once when creating the cop
-
+    this.anims.play('cop-walk', true);
+    this.scene = scene
   }
 
   /**
@@ -63,22 +67,24 @@ export class Cop extends BaseNPC {
   public move(playerHealth: number) {
     if (playerHealth <= 0) return;
 
-    const screenCenterX = this.scene.scale.width / 2;
-    const fraction = (100 - playerHealth) / 100; // fraction of full distance
+    const finalTargetX = this.scene._player.getCenter().x;
+    const startX = this.originalX; // bottom-left start
+    const fraction = (100 - playerHealth) / 100; // fraction of distance to move
 
     // Target is always originalX + fraction * fullDistance
-    const targetX = this.originalX + fraction * (screenCenterX - this.originalX);
+    const targetX = this.originalX + fraction * (finalTargetX - this.originalX);
     const targetY = this.y; // y stays fixed
+
+    // const targetX = 
+    // const targetY = this.scene.scale.height - 100; // keep y fixed at bottom
 
     this.scene.tweens.add({
       targets: this,
       x: targetX,
       y: targetY,
       ease: 'Power1',
-      duration: 10,
+      duration: 100,
     });
-
   }
 }
 
-// x = full distance

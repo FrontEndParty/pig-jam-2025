@@ -41,8 +41,8 @@ export class Game extends BaseScene
     // });
     // this._msg_text.setOrigin(0.5);
 
-    this._player = new Player(this, this.scale.width / 2, this.scale.height - 100);
-    this._cop = new Cop(this, 0, this.scale.height - 100);
+    this._player = new Player(this, this.scale.width - 100, this.scale.height - 100);
+    this._cop = new Cop(this, 100, this.scale.height - 100);
     // this._cop.setupCollision(this._player);
 
     this.anims.create({
@@ -64,12 +64,13 @@ export class Game extends BaseScene
 
     this._obstacles = this.add.group({ runChildUpdate: true });
 
-    this.time.addEvent({
-      delay: 1500,
-      callback: this.spawnObstacle,
-      callbackScope: this,
-      loop: true,
-    });
+    // TODO: read obstacles
+    // this.time.addEvent({
+    //   delay: 1500,
+    //   callback: this.spawnObstacle,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
 
     this.listenForEvents();
   }
