@@ -61,6 +61,7 @@ export class Preloader extends BaseScene
 
         // Audio
         this.load.audio('song_01', 'sounds/piggy_two_step_01.mp3');
+        this.load.audio('dead-song', 'sounds/dead_song.mp3');
     }
 
     create ()
