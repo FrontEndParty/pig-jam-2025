@@ -2,12 +2,11 @@
 // This scene handles input streaming and anything else you think should go here.
 import { Note } from '../util/Note';
 import { Game } from './Game'
+import { song01Beats } from '../data/song01-beats';
 
 
 export class SongScene extends Phaser.Scene {
-  bpm = 190;
   songStart = 0;
-  songLength = 100; // seconds
   notes: Note[] = [];
   nextIndex = 0;
   inputWindow = 100; // ms ± window
@@ -21,9 +20,6 @@ export class SongScene extends Phaser.Scene {
   }
 
   create() {
-    this.songStart = this.time.now;
-    this.generateNotes(this.songLength);
-
     // Hit line (¼ across screen, near top)
     this.hitX = this.scale.width * 0.25;
     const line = this.add.rectangle(
@@ -39,20 +35,32 @@ export class SongScene extends Phaser.Scene {
     const gameScene = this.scene.get("Game") as Game; // cast to your Game class
     this.player = gameScene._player;
     this.createLanes();
-  }
 
-  generateNotes(secondsAhead: number) {
-    const beatInterval = (60 / this.bpm) * 1000;
-    const totalBeats = Math.floor((secondsAhead * 1000) / beatInterval);
-
-    this.notes = Array.from({ length: totalBeats }, (_, i) => {
-      const time = i * beatInterval + this.songStart;
-      const inputs = [Phaser.Math.Between(0, 3)];
-      return { time, inputs, active: true };
+    // Start music and notes AFTER everything is setup and rendered
+    // Use nextTick or small delay to ensure scene is fully visible
+    this.time.delayedCall(100, () => {
+      this.songStart = this.time.now;
+      this.sound.play('song_01', { volume: 0.5 });
+      this.generateNotes();
+      console.log('Song started at:', this.songStart);
     });
   }
 
+  generateNotes() {
+    // Use actual beat timings from song01-beats.ts
+    // Convert beat times (in seconds) to absolute timestamps (ms since songStart)
+    this.notes = song01Beats.map(beatTime => {
+      const time = this.songStart + (beatTime * 1000); // Convert seconds to ms
+      const inputs = [Phaser.Math.Between(0, 3)]; // Random button assignment
+      return { time, inputs, active: true };
+    });
+
+    console.log(`Loaded ${this.notes.length} notes from song data`);
+  }
+
   update() {
+    if (this.songStart === 0 || this.notes.length === 0) return;
+
     const now = this.time.now;
     const elapsed = now - this.songStart;
     this.checkNext(elapsed);
@@ -68,7 +76,7 @@ export class SongScene extends Phaser.Scene {
       if (note.sprite) note.sprite.setColor("#ff0000");
       console.log("Missed note!", this.player._health);
       this.nextIndex++;
-      
+
     }
   }
 

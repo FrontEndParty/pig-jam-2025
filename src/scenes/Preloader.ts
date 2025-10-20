@@ -47,19 +47,22 @@ export class Preloader extends BaseScene
           frameHeight: 375  // Height of one frame
         });
         this.load.spritesheet('cop', 'images/sprites/cop_sprite_cropped.png',{
-          frameWidth: 939, 
-          frameHeight: 1252 
+          frameWidth: 939,
+          frameHeight: 1252
         });       // For the BaseNPC/Cop class
         this.load.spritesheet('turtle', 'images/sprites/turtle_sprite_cropped.png', {
-          frameWidth: 229, 
-          frameHeight: 179 
+          frameWidth: 229,
+          frameHeight: 179
         });     // For the Turtle obstacle
         this.load.spritesheet('gnome', 'images/sprites/gnome_sprite_cropped.png',{
-           frameWidth: 118, 
-           frameHeight: 205 
+           frameWidth: 118,
+           frameHeight: 205
         });   // For the Gnome obstacle
 
         // --- END OF NEW ASSETS ---
+
+        // Audio
+        this.load.audio('song_01', 'sounds/piggy_two_step_01.mp3');
     }
 
     create ()
